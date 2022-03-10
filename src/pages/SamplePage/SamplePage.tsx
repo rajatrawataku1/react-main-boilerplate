@@ -1,11 +1,18 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { updateData } from 'src/actions/sampleActions';
+import { getMessageData } from 'src/actions/getDataAction';
 
 // @ts-ignore
 import styles from './SamplePage.module.css';
 
 const SampleComponent = props => {
+	React.useEffect(() => {
+		props.getMessageData({
+			url: 'https://my-json-server.typicode.com/codebuds-fk/chat/chats'
+		});
+	});
+
 	const incrementCounter = () => {
 		props.updateData(props.counter + 1);
 	};
@@ -25,7 +32,8 @@ const mapStateToPops = state => {
 };
 
 const mapDispatchToProps = {
-	updateData
+	updateData,
+	getMessageData
 };
 
 export default connect(mapStateToPops, mapDispatchToProps)(SampleComponent);
